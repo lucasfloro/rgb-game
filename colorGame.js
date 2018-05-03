@@ -7,13 +7,12 @@ let colors = [
     "rgb(255, 0, 255)"
 ]
 
-let pickedColor = colors[3];
+let pickedColor = pickColor();
+let squares = document.querySelectorAll(".square");
 let colorDisplay = document.getElementById("colorDisplay");
+let messageDisplay = document.getElementById("message");
 
 colorDisplay.textContent = pickedColor;
-
-
-let squares = document.querySelectorAll(".square");
 
 for (let i = 0; i < squares.length; i++) {
     squares[i].style.backgroundColor = colors[i];
@@ -24,12 +23,23 @@ for (let i = 0; i < squares.length; i++) {
 
         //compare color to pickedColor
         if (clickedColor === pickedColor) {
-            alert("you searched the color");
+            messageDisplay.textContent = "CORRECT!";
+            changeColors(clickedColor);
         } else {
             this.style.backgroundColor = "#232323";
+            messageDisplay.textContent = "Error! Try Again!";
         }
     })
 }
-// squares.forEach(element => {
-//     element.style
-// });
+
+function changeColors(color) {
+    // loop through all squares
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = color;
+    }
+}
+
+function pickColor() {
+    let random = Math.floor(Math.random() * colors.length);
+    return colors[random];
+}
